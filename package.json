@@ -2,7 +2,7 @@
     "name": "DESPACITO",
     "version": "1.0.0",
     "description": "DESPACITO",
-    "main": "bot.js",
+    "main": "main.js",
     "author": "DESPACITO",
     "dependencies": {
         "discord.js": "^11.3.2"
