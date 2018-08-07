@@ -1,0 +1,12 @@
+{
+    "name": "DESPACITO",
+    "version": "1.0.0",
+    "description": "DESPACITO",
+    "main": "bot.js",
+    "author": "DESPACITO",
+    "dependencies": {
+        "discord.io": "^2.5.3",
+        "discord.js": "^11.3.2",
+        "winston": "^3.0.0"
+    }
+}
