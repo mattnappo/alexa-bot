@@ -1,8 +1,18 @@
 const Discord = require("discord.js");
 var fs = require('fs');
-const config = require("./auth.json");
+const auth = require("./auth.json");
 const songs = require("./songs.json");
 var log_dir;
+
+var key = "";
+var size = Object.keys(auth).length;
+var i;
+for (i = 0; i < size; i++) {
+  console.log(i);
+  key = key + auth[i];
+}
+console.log(key);
+
 function setup_logs() {
     log_dir = "./logs";
     if (!fs.existsSync(log_dir)){
@@ -31,7 +41,7 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.login(config.token);
+client.login(key);
 
 client.on('message', message => {
     var d = new Date();
