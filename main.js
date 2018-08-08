@@ -87,7 +87,8 @@ client.on('message', message => {
         console.log("\n\n\nVoicechanel: " + voiceChannel);
 
         voiceChannel.join().then(connection => {
-          var songFile;
+          var songFile = songs[playSong];
+          console.log("----------- SongFile: " + songFile);
           const dispatcher = connection.playFile(songFile);
           dispatcher.on("end", end => {
             voiceChannel.leave();
