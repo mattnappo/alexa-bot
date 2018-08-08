@@ -84,7 +84,7 @@ client.on('message', message => {
         message.channel.send(msg_header);
 
         var voiceChannel = client.channels.find("name", "Alexa");
-        console.log("Voicechanel: " + voiceChannel);
+        console.log("\n\n\nVoicechanel: " + voiceChannel);
 
         voiceChannel.join().then(connection => {
           var songFile;
