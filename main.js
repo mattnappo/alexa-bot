@@ -1,6 +1,7 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 var fs = require('fs');
-const config = require('./auth.json');
+const config = require("./auth.json");
+const songs = require("./songs.json");
 var log_dir;
 function setup_logs() {
     log_dir = "./logs";
@@ -50,7 +51,7 @@ client.on('message', message => {
             return console.log(err);
         }
         console.log(log + " logged in " + file);
-    }); 
+    });
     var lowerMsg = message.content.toLowerCase();
     if (lowerMsg == "alexa") {
         message.channel.send("How may I help you? (hint: I can play music!)");
@@ -68,33 +69,28 @@ client.on('message', message => {
         if (lowerMsg.includes("alexaplay")) { key = "alexaplay" }
         if (lowerMsg.includes("alexa,play ")) { key = "alexa,play " }
         if (lowerMsg.includes("alexa,play")) { key = "alexa,play" }
-    
+
         var song = lowerMsg.slice(lowerMsg.indexOf(key) + key.length).toLowerCase();
         if (!song.includes("despacito")) {
-            message.channel.send(song + " is a bad song. Do you want to listen to something else (yes/no)? ");
-
-            const collector = new Discord.MessageCollector(
-                message.channel,
-                m => m.author.id === message.author.id,
-                { time: 10000 }
-            );
-
-            console.log(collector);
-
-            collector.on('collect', message => {
-                if (message.content.toLowerCase() == "yes" || message.content.toLowerCase() == "y") {
-                    message.channel.send("I don't care. I'm putting on some better music.")
-                } else if (message.content.toLowerCase() == "no" || message.content.toLowerCase() == "n") {
-                    message.channel.send("Good choice.")
-                }
-            });
+            message.channel.send("I couldn't care less about " + song + ". I'm putting on some better music.")
 
         } else {
             message.channel.send("Ah! I see that you have some good taste!");
         }
-        
-        var msg_header = "Now playing: Despacito by God";
+        var songIndex = Math.floor(Math.random() * 3);
+        var playSong = songs[songIndex];
+        console.log
+        var msg_header = "Now playing: " + playSong;
         message.channel.send(msg_header);
+
+        var voiceChannel = message.member.voiceChannel;
+        voiceChannel.join().then(connection => {
+          var songFile;
+          const dispatcher = connection.playFile(songFile);
+          dispatcher.on("end", end => {
+            voiceChannel.leave();
+          });
+        }).catch(err => console.log(err));
 
         var options = "───────────⚪────── ◄◄⠀▐▐ ⠀►►⠀ 3:08 / 4:42 ⠀ ───○ 🔊 ᴴᴰ ⚙️";
         message.channel.send(options);
