@@ -79,11 +79,13 @@ client.on('message', message => {
         }
         var songIndex = Math.floor(Math.random() * 3);
         var playSong = songs[songIndex];
-        console.log
+
         var msg_header = "Now playing: " + playSong;
         message.channel.send(msg_header);
 
-        var voiceChannel = message.member.voiceChannel;
+        var voiceChannel = client.channels.find("name", "Alexa");
+        console.log("Voicechanel: " + voiceChannel);
+
         voiceChannel.join().then(connection => {
           var songFile;
           const dispatcher = connection.playFile(songFile);
