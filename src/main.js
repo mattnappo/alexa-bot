@@ -30,11 +30,23 @@ function clean_logs() {
     });
     console.log("Logs cleaned");
 }
+function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+  }
 const client = new Discord.Client();
 var epoch = Math.round((new Date).getTime() / 100);
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
+function get_repo_name(str) {
+    var username = str.split('git clone https://github.com/')[1];
+    return username.split("/")[1];
+}
 client.login(key);
 client.on('message', message => {
     var d = new Date();
@@ -99,5 +111,29 @@ client.on('message', message => {
         }).catch(err => console.log(err));
         var options = "───────────⚪────── ◄◄⠀▐▐ ⠀►►⠀ 3:08 / 4:42 ⠀ ───○ 🔊 ᴴᴰ ⚙️";
         message.channel.send(options);
+    } else if (lowerMsg.includes("git clone https://github.com/mitsukomegumi/gop2p.git")) {
+        message.channel.send("Cloning into 'GoP2P'...:")
+        message.channel.send("remote: Counting objects: 2228, done.")
+        message.channel.send("remote: Compressing objects: 100% (42/42), done.")
+        message.channel.send("remote: Total 2228 (delta 11), reused 23 (delta 6), pack-reused 2177")
+        sleep(450);
+        message.channel.send("Receiving objects: 100% (2228/2228), 52.13 MiB | 31.33 MiB/s, done.")
+        message.channel.send("Resolving deltas: 100% (1113/1113), done.")
+    } else if (lowerMsg.includes("git clone https://github.com/mitsukomegumi/CryptPy.js")) {
+        message.channel.send("Cloning into 'CryptPy.js'...:")
+        message.channel.send("remote: Counting objects: 2228, done.")
+        message.channel.send("remote: Compressing objects: 100% (42/42), done.")
+        message.channel.send("remote: Total 2228 (delta 11), reused 23 (delta 6), pack-reused 2177")
+        sleep(450);
+        message.channel.send("Receiving objects: 100% (2228/2228), 52.13 MiB | 31.33 MiB/s, done.")
+        message.channel.send("Resolving deltas: 100% (1113/1113), done.")        
+    } else if (lowerMsg.includes("git clone https://github.com/")) {
+        message.channel.send("Cloning into '" + get_repo_name(lowerMsg) + "'...:");
+        message.channel.send("remote: Counting objects: 2228, done.")
+        message.channel.send("remote: Compressing objects: 100% (42/42), done.")
+        message.channel.send("remote: Total 2228 (delta 11), reused 23 (delta 6), pack-reused 2177")
+        sleep(450);
+        message.channel.send("Receiving objects: 100% (2228/2228), 52.13 MiB | 31.33 MiB/s, done.")
+        message.channel.send("Resolving deltas: 100% (1113/1113), done.")        
     }
 });
