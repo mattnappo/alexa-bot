@@ -1,9 +1,9 @@
 const Discord = require("discord.js");
+const path = require("path");
 var fs = require('fs');
 const auth = require("./auth.json");
 const songs = require("./songs.json");
 var log_dir;
-
 var key = "";
 var size = Object.keys(auth).length;
 var i;
@@ -11,7 +11,6 @@ for (i = 0; i < size; i++) {
   key = key + auth[i];
 }
 console.log(key);
-
 function setup_logs() {
     log_dir = "./src/logs";
     if (!fs.existsSync(log_dir)){
@@ -31,17 +30,12 @@ function clean_logs() {
     });
     console.log("Logs cleaned");
 }
-
 const client = new Discord.Client();
-
 var epoch = Math.round((new Date).getTime() / 100);
-
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
-
 client.login(key);
-
 client.on('message', message => {
     var d = new Date();
     var hour = d.getHours();
@@ -50,7 +44,6 @@ client.on('message', message => {
     var month = d.getMonth();
     var day = d.getDate();
     var year = d.getFullYear();
-
     var time = hour + ":" + minute + ":" + second + " @ " + month + "/" + day + "/" + year;
 
     var log = "user wrote '" + message.content + "' to channel general at " + time;
@@ -101,13 +94,13 @@ client.on('message', message => {
         console.log("Voicechanel: " + voiceChannel);
 
         voiceChannel.join().then(connection => {
-            var filename = "./media/" + songs[play_song];
+            var filename = path.join(__dirname, "./media/" + songs[play_song]);
             console.log(filename);
             console.log("\n\n\nREEEEEE\n\n\n");
             const dispatcher = connection.playStream(filename);
-            // dispatcher.on("end", function() {
-            //     voiceChannel.leave();
-            // });
+            dispatcher.on("end", function() {
+                voiceChannel.leave();
+            });
             console.log("\n\n\nREEEEEE\n\n\n");
         }).catch(err => console.log(err));
 
