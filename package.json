@@ -1,10 +1,13 @@
 {
-    "name": "Alexa",
+    "name": "alexa",
     "version": "1.0.0",
-    "description": "DESPACITO",
-    "main": "main.js",
-    "author": "DESPACITO",
+    "description": "Despacito",
+    "main": "src/main.js",
+    "author": "xxmattnappo",
     "dependencies": {
         "discord.js": "^11.3.2"
+    },
+    "devDependencies": {
+        "ffmpeg": "0.0.4"
     }
 }
