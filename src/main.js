@@ -13,7 +13,7 @@ for (i = 0; i < size; i++) {
 console.log(key);
 
 function setup_logs() {
-    log_dir = "./logs";
+    log_dir = "./src/logs";
     if (!fs.existsSync(log_dir)){
         fs.mkdirSync(log_dir);
     }
@@ -98,15 +98,17 @@ client.on('message', message => {
 
         message.channel.send("Now playing: " + play_song);
         var voiceChannel = client.channels.find("name", "Alexa");
-        console.log("\n\n\nVoicechanel: " + voiceChannel);
+        console.log("Voicechanel: " + voiceChannel);
 
         voiceChannel.join().then(connection => {
-          var filename = "media/" + songs[play_song];
-          console.log("\n\n\n" + filename);
-          const dispatcher = connection.playFile(filename);
-          dispatcher.on("end", end => {
-            voiceChannel.leave();
-          });
+            var filename = "./media/" + songs[play_song];
+            console.log(filename);
+            console.log("\n\n\nREEEEEE\n\n\n");
+            const dispatcher = connection.playStream(filename);
+            // dispatcher.on("end", function() {
+            //     voiceChannel.leave();
+            // });
+            console.log("\n\n\nREEEEEE\n\n\n");
         }).catch(err => console.log(err));
 
         var options = "───────────⚪────── ◄◄⠀▐▐ ⠀►►⠀ 3:08 / 4:42 ⠀ ───○ 🔊 ᴴᴰ ⚙️";

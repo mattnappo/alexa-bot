@@ -4,10 +4,12 @@
     "description": "Despacito",
     "main": "src/main.js",
     "author": "xxmattnappo",
-    "dependencies": {
-        "discord.js": "^11.3.2"
+    "scripts": {
+        "start": "node src/main.js"
     },
     "devDependencies": {
-        "ffmpeg": "0.0.4"
+        "discord.js": "^11.3.2",
+        "ffmpeg": "0.0.4",
+        "node-opus": "^0.3.0"
     }
 }
