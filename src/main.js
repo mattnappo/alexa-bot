@@ -71,7 +71,6 @@ client.on('message', message => {
         if (lowerMsg.includes("alexaplay")) { key = "alexaplay" }
         if (lowerMsg.includes("alexa,play ")) { key = "alexa,play " }
         if (lowerMsg.includes("alexa,play")) { key = "alexa,play" }
-
         var song = lowerMsg.slice(lowerMsg.indexOf(key) + key.length).toLowerCase();
         if (!song.includes("despacito")) {
             message.channel.send("I couldn't care less about " + song + ". I'm putting on some better music.")
@@ -88,7 +87,6 @@ client.on('message', message => {
         } else {
             play_song = "Never Gonna Give You Up - Rick Astley";
         }
-
         message.channel.send("Now playing: " + play_song);
         var voiceChannel = client.channels.find("name", "Alexa");
         console.log("Voicechanel: " + voiceChannel);
@@ -98,12 +96,7 @@ client.on('message', message => {
             console.log(filename);
             console.log("\n\n\nREEEEEE\n\n\n");
             const dispatcher = connection.playStream(filename);
-            dispatcher.on("end", function() {
-                voiceChannel.leave();
-            });
-            console.log("\n\n\nREEEEEE\n\n\n");
         }).catch(err => console.log(err));
-
         var options = "───────────⚪────── ◄◄⠀▐▐ ⠀►►⠀ 3:08 / 4:42 ⠀ ───○ 🔊 ᴴᴰ ⚙️";
         message.channel.send(options);
     }
