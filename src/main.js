@@ -67,7 +67,7 @@ client.on('message', message => {
         console.log(log + " logged in " + file);
     });
     var lowerMsg = message.content.toLowerCase();
-    if (message.includes("ALEXA")) {
+    if (message.content.includes("ALEXA")) {
         message.channel.send("Shhhh! No need to yell! My advanced microphones can hear you from anywhere in the room!")
     }
     if (lowerMsg == "alexa") {
