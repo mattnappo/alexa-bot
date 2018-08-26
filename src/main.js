@@ -67,13 +67,30 @@ client.on('message', message => {
         console.log(log + " logged in " + file);
     });
     var lowerMsg = message.content.toLowerCase();
+    if (message == "ALEXA") {
+        message.channel.send("Shhhh! No need to yell! My advanced microphones can hear you from anywhere in the room!")
+    }
     if (lowerMsg == "alexa") {
-        message.channel.send("How may I help you? (hint: I can play music!)");
+        message.channel.send("How may I help you?");
+        message.channel.send("-- I can play music!");
+        message.channel.send("-- I know smart stuff like git clone!");
     }
     if (lowerMsg == "!clean") {
         clean_logs();
     }
-    if (lowerMsg.includes("alexa") && lowerMsg.includes("play")) {
+    if (lowerMsg == "alexa play despacito") {
+        message.channel.send("Now playing: DESPACITOOOO");
+        var voiceChannel = client.channels.find("name", "Alexa");
+        console.log("Voicechanel: " + voiceChannel);
+
+        voiceChannel.join().then(connection => {
+            var filename = path.join(__dirname, "./media/despacito.mp3");
+            console.log(filename);
+            const dispatcher = connection.playStream(filename);
+        }).catch(err => console.log(err));
+        var options = "───────────⚪────── ◄◄⠀▐▐ ⠀►►⠀ 3:08 / 4:42 ⠀ ───○ 🔊 ᴴᴰ ⚙️";
+        message.channel.send(options);
+    } else if (lowerMsg.includes("alexa") && lowerMsg.includes("play")) {
         var key = "";
         if (lowerMsg.includes("alexa, play ")) { key = "alexa, play " }
         if (lowerMsg.includes("alexa, play")) { key = "alexa, play" }
@@ -86,7 +103,16 @@ client.on('message', message => {
         var song = lowerMsg.slice(lowerMsg.indexOf(key) + key.length).toLowerCase();
         if (!song.includes("despacito")) {
             message.channel.send("I couldn't care less about " + song + ". I'm putting on some better music.")
-
+            message.channel.send("Now playing: " + play_song);
+            var voiceChannel = client.channels.find("name", "Alexa");
+            console.log("Voicechanel: " + voiceChannel);
+            voiceChannel.join().then(connection => {
+                var filename = path.join(__dirname, "./media/" + songs[play_song]);
+                console.log(filename);
+                const dispatcher = connection.playStream(filename);
+            }).catch(err => console.log(err));
+            var options = "───────────⚪────── ◄◄⠀▐▐ ⠀►►⠀ 3:08 / 4:42 ⠀ ───○ 🔊 ᴴᴰ ⚙️";
+            message.channel.send(options);
         } else {
             message.channel.send("Ah! I see that you have some good taste!");
         }
@@ -102,38 +128,26 @@ client.on('message', message => {
         message.channel.send("Now playing: " + play_song);
         var voiceChannel = client.channels.find("name", "Alexa");
         console.log("Voicechanel: " + voiceChannel);
-
         voiceChannel.join().then(connection => {
             var filename = path.join(__dirname, "./media/" + songs[play_song]);
             console.log(filename);
-            console.log("\n\n\nREEEEEE\n\n\n");
             const dispatcher = connection.playStream(filename);
         }).catch(err => console.log(err));
         var options = "───────────⚪────── ◄◄⠀▐▐ ⠀►►⠀ 3:08 / 4:42 ⠀ ───○ 🔊 ᴴᴰ ⚙️";
         message.channel.send(options);
-    } else if (lowerMsg.includes("git clone https://github.com/mitsukomegumi/gop2p.git")) {
-        message.channel.send("Cloning into 'GoP2P'...:")
-        message.channel.send("remote: Counting objects: 2228, done.")
-        message.channel.send("remote: Compressing objects: 100% (42/42), done.")
-        message.channel.send("remote: Total 2228 (delta 11), reused 23 (delta 6), pack-reused 2177")
-        sleep(450);
-        message.channel.send("Receiving objects: 100% (2228/2228), 52.13 MiB | 31.33 MiB/s, done.")
-        message.channel.send("Resolving deltas: 100% (1113/1113), done.")
-    } else if (lowerMsg.includes("git clone https://github.com/mitsukomegumi/CryptPy.js")) {
-        message.channel.send("Cloning into 'CryptPy.js'...:")
-        message.channel.send("remote: Counting objects: 2228, done.")
-        message.channel.send("remote: Compressing objects: 100% (42/42), done.")
-        message.channel.send("remote: Total 2228 (delta 11), reused 23 (delta 6), pack-reused 2177")
-        sleep(450);
-        message.channel.send("Receiving objects: 100% (2228/2228), 52.13 MiB | 31.33 MiB/s, done.")
-        message.channel.send("Resolving deltas: 100% (1113/1113), done.")        
     } else if (lowerMsg.includes("git clone https://github.com/")) {
-        message.channel.send("Cloning into '" + get_repo_name(lowerMsg) + "'...:");
+        message.channel.send("Cloning into '" + get_repo_name(lowerMsg));
         message.channel.send("remote: Counting objects: 2228, done.")
-        message.channel.send("remote: Compressing objects: 100% (42/42), done.")
+        message.channel.send("remote: Compressing objects: 74% (42/42), done.")
         message.channel.send("remote: Total 2228 (delta 11), reused 23 (delta 6), pack-reused 2177")
         sleep(450);
-        message.channel.send("Receiving objects: 100% (2228/2228), 52.13 MiB | 31.33 MiB/s, done.")
-        message.channel.send("Resolving deltas: 100% (1113/1113), done.")        
+        message.channel.send("Receiving objects: 93% (2228/2228), 52.13 MiB | 31.33 MiB/s, done.")
+        message.channel.send("Resolving deltas: 100% (1113/1113), done.")
+    } else if (lowerMsg == "git") {
+        message.channel.send("usage: git [--version] [--help] [-C <path>] [-c name=value]");
+        message.channel.send("    [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]");
+        message.channel.send("    [-p | --paginate | --no-pager] [--no-replace-objects] [--bare]");
+        message.channel.send("    [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]");
+        message.channel.send("    <command> [<args>]");
     }
 });
