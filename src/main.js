@@ -67,7 +67,7 @@ client.on('message', message => {
         console.log(log + " logged in " + file);
     });
     var lowerMsg = message.content.toLowerCase();
-    if (message == "ALEXA") {
+    if (message.includes("ALEXA")) {
         message.channel.send("Shhhh! No need to yell! My advanced microphones can hear you from anywhere in the room!")
     }
     if (lowerMsg == "alexa") {
@@ -78,7 +78,7 @@ client.on('message', message => {
     if (lowerMsg == "!clean") {
         clean_logs();
     }
-    if (lowerMsg == "alexa play despacito") {
+    if (lowerMsg.includes("alexa play despacito") || lowerMsg.includes("alexa, play despacito")) {
         message.channel.send("Now playing: DESPACITOOOO");
         var voiceChannel = client.channels.find("name", "Alexa");
         console.log("Voicechanel: " + voiceChannel);
@@ -87,6 +87,7 @@ client.on('message', message => {
             var filename = path.join(__dirname, "./media/despacito.mp3");
             console.log(filename);
             const dispatcher = connection.playStream(filename);
+            console.log("\n\n\n\n\n");
         }).catch(err => console.log(err));
         var options = "───────────⚪────── ◄◄⠀▐▐ ⠀►►⠀ 3:08 / 4:42 ⠀ ───○ 🔊 ᴴᴰ ⚙️";
         message.channel.send(options);
@@ -101,21 +102,6 @@ client.on('message', message => {
         if (lowerMsg.includes("alexa,play ")) { key = "alexa,play " }
         if (lowerMsg.includes("alexa,play")) { key = "alexa,play" }
         var song = lowerMsg.slice(lowerMsg.indexOf(key) + key.length).toLowerCase();
-        if (!song.includes("despacito")) {
-            message.channel.send("I couldn't care less about " + song + ". I'm putting on some better music.")
-            message.channel.send("Now playing: " + play_song);
-            var voiceChannel = client.channels.find("name", "Alexa");
-            console.log("Voicechanel: " + voiceChannel);
-            voiceChannel.join().then(connection => {
-                var filename = path.join(__dirname, "./media/" + songs[play_song]);
-                console.log(filename);
-                const dispatcher = connection.playStream(filename);
-            }).catch(err => console.log(err));
-            var options = "───────────⚪────── ◄◄⠀▐▐ ⠀►►⠀ 3:08 / 4:42 ⠀ ───○ 🔊 ᴴᴰ ⚙️";
-            message.channel.send(options);
-        } else {
-            message.channel.send("Ah! I see that you have some good taste!");
-        }
         var song_index = Math.floor(Math.random() * 3);
         var play_song = "";
         if (song_index == 0) {
