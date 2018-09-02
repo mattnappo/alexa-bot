@@ -1,11 +1,2 @@
-# DESPACITO
-DESPACITO (NO PEAKING mitsukomegumi) SERIOUSLY
-dont look
-mitsukomegumi dont look
-dont look
-mitsukomegumi dont look
-dont look
-mitsukomegumi dont look
-dont look
-mitsukomegumi dont look
-reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+# Alexa, Play Despacito
+An Amazon Alexa Discord bot!
