@@ -67,10 +67,10 @@ client.on('message', message => {
         console.log(log + " logged in " + file);
     });
     var lowerMsg = message.content.toLowerCase();
-    if (message.content.includes("ALEXA")) {
+    if (message.content.includes("cortana")) {
         message.channel.send("Shhhh! No need to yell! My advanced microphones can hear you from anywhere in the room!")
     }
-    if (lowerMsg == "alexa") {
+    if (lowerMsg == "cortana") {
         message.channel.send("How may I help you?");
         message.channel.send("-- I can play music!");
         message.channel.send("-- I know smart stuff like git clone!");
@@ -78,9 +78,9 @@ client.on('message', message => {
     if (lowerMsg == "!clean") {
         clean_logs();
     }
-    if (lowerMsg.includes("alexa play despacito") || lowerMsg.includes("alexa, play despacito")) {
+    if (lowerMsg.includes("cortana play despacito") || lowerMsg.includes("cortana, play despacito")) {
         message.channel.send("Now playing: DESPACITOOOO");
-        var voiceChannel = client.channels.find("name", "Alexa");
+        var voiceChannel = client.channels.find("name", "cortana");
         console.log("Voicechanel: " + voiceChannel);
 
         voiceChannel.join().then(connection => {
@@ -91,16 +91,16 @@ client.on('message', message => {
         }).catch(err => console.log(err));
         var options = "───────────⚪────── ◄◄⠀▐▐ ⠀►►⠀ 3:08 / 4:42 ⠀ ───○ 🔊 ᴴᴰ ⚙️";
         message.channel.send(options);
-    } else if (lowerMsg.includes("alexa") && lowerMsg.includes("play")) {
+    } else if (lowerMsg.includes("cortana") && lowerMsg.includes("play")) {
         var key = "";
-        if (lowerMsg.includes("alexa, play ")) { key = "alexa, play " }
-        if (lowerMsg.includes("alexa, play")) { key = "alexa, play" }
-        if (lowerMsg.includes("alexa play ")) { key = "alexa play " }
-        if (lowerMsg.includes("alexa play")) { key = "alexa play" }
-        if (lowerMsg.includes("alexaplay ")) { key = "alexaplay " }
-        if (lowerMsg.includes("alexaplay")) { key = "alexaplay" }
-        if (lowerMsg.includes("alexa,play ")) { key = "alexa,play " }
-        if (lowerMsg.includes("alexa,play")) { key = "alexa,play" }
+        if (lowerMsg.includes("cortana, play ")) { key = "cortana, play " }
+        if (lowerMsg.includes("cortana, play")) { key = "cortana, play" }
+        if (lowerMsg.includes("cortana play ")) { key = "cortana play " }
+        if (lowerMsg.includes("cortana play")) { key = "cortana play" }
+        if (lowerMsg.includes("cortanaplay ")) { key = "cortanaplay " }
+        if (lowerMsg.includes("cortanaplay")) { key = "cortanaplay" }
+        if (lowerMsg.includes("cortana,play ")) { key = "cortana,play " }
+        if (lowerMsg.includes("cortana,play")) { key = "cortana,play" }
         var song = lowerMsg.slice(lowerMsg.indexOf(key) + key.length).toLowerCase();
         var song_index = Math.floor(Math.random() * 3);
         var play_song = "";
@@ -112,7 +112,7 @@ client.on('message', message => {
             play_song = "Never Gonna Give You Up - Rick Astley";
         }
         message.channel.send("Now playing: " + play_song);
-        var voiceChannel = client.channels.find("name", "Alexa");
+        var voiceChannel = client.channels.find("name", "cortana");
         console.log("Voicechanel: " + voiceChannel);
         voiceChannel.join().then(connection => {
             var filename = path.join(__dirname, "./media/" + songs[play_song]);
