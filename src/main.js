@@ -80,7 +80,7 @@ client.on('message', message => {
     }
     if (lowerMsg.includes("cortana play despacito") || lowerMsg.includes("cortana, play despacito")) {
         message.channel.send("Now playing: DESPACITOOOO");
-        var voiceChannel = client.channels.find("name", "cortana");
+        var voiceChannel = client.channels.find("name", "Cortana");
         console.log("Voicechanel: " + voiceChannel);
 
         voiceChannel.join().then(connection => {
